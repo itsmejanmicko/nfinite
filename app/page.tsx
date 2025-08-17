@@ -1,103 +1,78 @@
-import Image from "next/image";
+import LoginForm from "./(auth)/login"
 
-export default function Home() {
+export default function LoginPage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-black relative overflow-hidden">
+      {/* Geometric background pattern */}
+      <div className="absolute inset-0 opacity-20">
+        <svg className="w-full h-full" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M0 0L100 100M100 0L200 100M200 0L300 100M300 0L400 100M400 0L500 100M500 0L600 100M600 0L700 100M700 0L800 100"
+            stroke="currentColor"
+            strokeWidth="1"
+            className="text-gray-700"
+          />
+          <path
+            d="M0 100L100 200M100 100L200 200M200 100L300 200M300 100L400 200M400 100L500 200M500 100L600 200M600 100L700 200M700 100L800 200"
+            stroke="currentColor"
+            strokeWidth="1"
+            className="text-gray-700"
+          />
+          <path
+            d="M0 200L100 300M100 200L200 300M200 200L300 300M300 200L400 300M400 200L500 300M500 200L600 300M600 200L700 300M700 200L800 300"
+            stroke="currentColor"
+            strokeWidth="1"
+            className="text-gray-700"
+          />
+          <path
+            d="M0 300L100 400M100 300L200 400M200 300L300 400M300 300L400 400M400 300L500 400M500 300L600 400M600 300L700 400M700 300L800 400"
+            stroke="currentColor"
+            strokeWidth="1"
+            className="text-gray-700"
+          />
+          <path
+            d="M0 400L100 500M100 400L200 500M200 400L300 500M300 400L400 500M400 400L500 500M500 400L600 500M600 400L700 500M700 400L800 500"
+            stroke="currentColor"
+            strokeWidth="1"
+            className="text-gray-700"
+          />
+          <path
+            d="M0 500L100 600M100 500L200 600M200 500L300 600M300 500L400 600M400 500L500 600M500 500L600 600M600 500L700 600M700 500L800 600"
+            stroke="currentColor"
+            strokeWidth="1"
+            className="text-gray-700"
+          />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+          {/* Corner geometric elements */}
+          <path d="M0 0L50 0L50 50L0 50Z" stroke="currentColor" strokeWidth="2" fill="none" className="text-gray-600" />
+          <path
+            d="M750 0L800 0L800 50L750 50Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+            className="text-gray-600"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
+          <path
+            d="M0 550L50 550L50 600L0 600Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+            className="text-gray-600"
           />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
+          <path
+            d="M750 550L800 550L800 600L750 600Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+            className="text-gray-600"
           />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </svg>
+      </div>
+
+      {/* Login form container */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+        <LoginForm />
+      </div>
     </div>
-  );
+  )
 }

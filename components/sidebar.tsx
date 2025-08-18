@@ -2,7 +2,6 @@
 
 import { useGlobalFetch } from "@/context/globalfetch"
 import { cn } from "@/lib/utils"
-import logo from '@/lib/logo.png'
 import {
   BookmarkCheck,
   HelpCircle,

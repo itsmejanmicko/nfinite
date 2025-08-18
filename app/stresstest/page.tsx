@@ -24,8 +24,8 @@ export interface Device {
   status: "Active" | "Testing" | "Failed" | "Completed";
   remarks: string;
   notes: string;
-  assigned?: string;
-  model?:string;
+  assigned: string;
+  model:string;
 }
 
 
@@ -69,10 +69,11 @@ export default function DeviceManagement() {
     const confirmDelete = window.confirm("Are you sure you want to delete this device?")
     if (!confirmDelete) return
 
-    await toast.promise(
+     toast.promise(
       (async () => {
-        const docRef = doc(db, "devices", id)
+        const docRef = doc(db, "stresstest", id)
         await deleteDoc(docRef)
+        setDevices((prev) => prev.filter((d) => d.id !== id))
       })(),
       {
         loading: "Deleting device...",

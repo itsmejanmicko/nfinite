@@ -86,7 +86,7 @@ export function DeviceForm({ device, onSave, onCancel }: DeviceFormProps) {
     onSave(formattedData);
   }
 };
-
+ 
 
   const handleChange = (field: string, value: string | number) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -156,10 +156,13 @@ export function DeviceForm({ device, onSave, onCancel }: DeviceFormProps) {
                 />
               </div>
               <div>
-                <Label htmlFor="status">Status</Label>
-                <Select value={formData.status} onValueChange={(value) => handleChange("status", value)}>
+                  <Label htmlFor="status">Status</Label>
+                <Select 
+                  value={device?.status} 
+                  onValueChange={(value) => handleChange("status", value)}
+                >
                   <SelectTrigger>
-                    <SelectValue />
+                    <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="Active">Active</SelectItem>
@@ -167,6 +170,7 @@ export function DeviceForm({ device, onSave, onCancel }: DeviceFormProps) {
                     <SelectItem value="Completed">Completed</SelectItem>
                   </SelectContent>
                 </Select>
+
               </div>
             </div>
 

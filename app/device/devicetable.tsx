@@ -39,7 +39,7 @@ export default function ListDevice() {
     const total = devices.length
     const assigned = devices.filter((d) => d.assigned).length
     const p2Count = devices.filter((d) => d.model === "P2").length
-    const v2Count = devices.filter((d) => d.model === "V2").length
+    const v2Count = devices.filter((d) => d.model === "V2 PRO").length
 
     return { total, assigned, unassigned: total - assigned, p2Count, v2Count }
   }, [])
@@ -84,7 +84,7 @@ export default function ListDevice() {
                 <SelectContent>
                   <SelectItem value="all">All Models</SelectItem>
                   <SelectItem value="P2">P2 Devices</SelectItem>
-                  <SelectItem value="V2">V2 Devices</SelectItem>
+                  <SelectItem value="V2 PRO">V2 Devices</SelectItem>
                 </SelectContent>
               </Select>
               <Select value={assignmentFilter} onValueChange={setAssignmentFilter}>

@@ -2,12 +2,14 @@
 
 import type { Device } from "@/app/stresstest/page";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Search, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { collection, doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
+import { Input } from "@/components/input";
+
 
 interface DeviceTableProps {
   devices: Device[];
@@ -77,8 +79,9 @@ function getCondition(device: Device) {
 
 export function DeviceTable({ devices, onEdit, onDelete }: DeviceTableProps) {
   const [now, setNow] = useState(new Date());
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Update live duration every minute
+
   useEffect(() => {
     const interval = setInterval(() => setNow(new Date()), 60000);
     return () => clearInterval(interval);
@@ -98,9 +101,33 @@ export function DeviceTable({ devices, onEdit, onDelete }: DeviceTableProps) {
         return "bg-gray-100 text-gray-800";
     }
   };
+  const filteredDevices = devices.filter((device) => {
+    const searchLower = searchTerm.toLowerCase();
+    return (
+      device.sn.toLowerCase().includes(searchLower) ||
+      device.imei.toLowerCase().includes(searchLower) ||
+      (device.model && device.model.toLowerCase().includes(searchLower)) ||
+      (device.assigned && device.assigned.toLowerCase().includes(searchLower))
+    );
+  });
 
   return (
     <Card className="overflow-hidden">
+     <CardContent className="mx-4">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search by SN, IMEI, model, or assigned user..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+            </div>
+          </CardContent>
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-gray-50 border-b">
@@ -123,62 +150,62 @@ export function DeviceTable({ devices, onEdit, onDelete }: DeviceTableProps) {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {devices.length > 0 ? (
-              devices.map((device) => {
-                const duration = getDuration(device.timeIn, device.timeOut);
-                return (
-                  <tr key={device.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{device.imei}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.sn}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.model}</td>
-                    
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.osVersion}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.beforeBattery}%</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.afterBattery}%</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.timeIn}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {device.timeOut || "In Progress"}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{duration.label}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <Badge className={getStatusColor(device.status)}>{device.status}</Badge>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-900">
-                      {getCondition(device)}
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">{device.remarks}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">{device.notes}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">{device.assigned}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex space-x-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => onEdit(device)}
-                          className="text-blue-600 hover:text-blue-800"
-                        >
-                          <Edit className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => onDelete(device.id)}
-                          className="text-red-600 hover:text-red-800"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })
-            ) : (
-              <tr>
-                <td colSpan={13} className="px-6 py-4 text-center text-sm text-gray-500">
-                  No devices found.
-                </td>
-              </tr>
-            )}
+           {filteredDevices && filteredDevices.length > 0 ? (
+  filteredDevices.map((device) => {
+    const duration = getDuration(device.timeIn, device.timeOut);
+    return (
+      <tr key={device.id} className="hover:bg-gray-50">
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{device.imei}</td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.sn}</td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.model}</td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.osVersion}</td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.beforeBattery}%</td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.afterBattery}%</td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{device.timeIn}</td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+          {device.timeOut || "In Progress"}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{duration.label}</td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          <Badge className={getStatusColor(device.status)}>{device.status}</Badge>
+        </td>
+        <td className="px-6 py-4 text-sm text-gray-900">
+          {getCondition(device)}
+        </td>
+        <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">{device.remarks}</td>
+        <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">{device.notes}</td>
+        <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">{device.assigned}</td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+          <div className="flex space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onEdit(device)}
+              className="text-blue-600 hover:text-blue-800"
+            >
+              <Edit className="w-4 h-4" />
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onDelete(device.id)}
+              className="text-red-600 hover:text-red-800"
+            >
+              <Trash2 className="w-4 h-4" />
+            </Button>
+          </div>
+        </td>
+      </tr>
+    );
+  })
+) : (
+  <tr>
+    <td colSpan={13} className="px-6 py-4 text-center text-sm text-gray-500">
+      No devices found.
+    </td>
+  </tr>
+)}
+
           </tbody>
         </table>
       </div>

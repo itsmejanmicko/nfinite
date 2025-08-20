@@ -51,8 +51,8 @@ export function DeviceForm({ device, onSave, onCancel }: DeviceFormProps) {
       osVersion: device.osVersion,
       beforeBattery: device.beforeBattery,
       afterBattery: device.afterBattery,
-      timeIn: amPmTo24h(device.timeIn),   // Convert for time input
-      timeOut: amPmTo24h(device.timeOut), // Convert for time input
+      timeIn: amPmTo24h(device.timeIn),   
+      timeOut: amPmTo24h(device.timeOut),
       status: device.status,
       remarks: device.remarks,
       notes: device.notes,
@@ -201,28 +201,26 @@ export function DeviceForm({ device, onSave, onCancel }: DeviceFormProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-  <div>
-    <Label htmlFor="timeIn">Time In</Label>
-    <Input
-      id="timeIn"
-      type="time" // changed from datetime-local
-      value={formData.timeIn}
-      onChange={(e) => handleChange("timeIn", e.target.value)}
-      required
-    />
-  </div>
-  <div>
-    <Label htmlFor="timeOut">Time Out</Label>
-    <Input
-      id="timeOut"
-      type="time" // changed from datetime-local
-      value={formData.timeOut}
-      onChange={(e) => handleChange("timeOut", e.target.value)}
-    />
-  </div>
-</div>
-
-
+            <div>
+              <Label htmlFor="timeIn">Time In</Label>
+              <Input
+                id="timeIn"
+                type="time"
+                value={formData.timeIn}
+                onChange={(e) => handleChange("timeIn", e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <Label htmlFor="timeOut">Time Out</Label>
+              <Input
+                id="timeOut"
+                type="time" 
+                value={formData.timeOut}
+                onChange={(e) => handleChange("timeOut", e.target.value)}
+              />
+            </div>
+          </div>
             <div>
               <Label htmlFor="remarks">Remarks</Label>
               <Input

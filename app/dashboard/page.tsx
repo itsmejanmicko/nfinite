@@ -1,7 +1,6 @@
 'use client'
 import { DashboardHeader } from "@/components/dashboard-header";
 import { DeviceAnalytics } from "@/components/device-analytics";
-import { DeviceList } from "@/components/device-list";
 import { DeviceReminders } from "@/components/device-reminder";
 import { MetricsCards } from "@/components/metrics-cards";
 import { Sidebar } from "@/components/sidebar";
@@ -39,7 +38,6 @@ export default function Dashboard() {
               <div className="space-y-6">
                 <StressTestProgress />
                 <TimeTracker />
-                <DeviceList />
               </div>
             </div>
           </div>

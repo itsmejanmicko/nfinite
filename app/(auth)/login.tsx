@@ -30,7 +30,6 @@ export default function LoginForm() {
 
     toast.promise(
       (async () => {
-        // 🔑 1. Sign in
         const userCredential = await signInWithEmailAndPassword(
           auth,
           email,
@@ -38,20 +37,16 @@ export default function LoginForm() {
         )
 
         const uid = userCredential.user.uid
-
-        // 🔑 2. Query Firestore for document where `uid` field matches
         const q = query(collection(db, "users"), where("uid", "==", uid))
         const querySnapshot = await getDocs(q)
 
         if (!querySnapshot.empty) {
-          // 🔑 3a. If user doc exists → update it
           const userDocRef = querySnapshot.docs[0].ref
           await updateDoc(userDocRef, {
             status: "Online",
             lastLogin: new Date(),
           })
         } else {
-          // 🔑 3b. If no user doc found → create one
           const newUserRef = doc(collection(db, "users"))
           await setDoc(newUserRef, {
             uid,
@@ -61,8 +56,6 @@ export default function LoginForm() {
             lastLogin: new Date(),
           })
         }
-
-        // 🔑 4. Redirect
         router.push("/dashboard")
         return userCredential
       })(),

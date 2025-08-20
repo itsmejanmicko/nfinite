@@ -121,7 +121,7 @@ export default function DeviceManagement() {
                     </div>
                     <Button
                       onClick={() => {
-                        setEditingDevice(null); // ✅ reset editing state when adding
+                        setEditingDevice(null); 
                         setIsFormOpen(true);
                       }}
                       className="bg-green-500 hover:bg-green-600 text-white"
@@ -136,7 +136,7 @@ export default function DeviceManagement() {
                     devices={devices}
                     onEdit={(device) => {
                       setEditingDevice(device);
-                      setIsFormOpen(true); // ✅ Open modal when editing
+                      setIsFormOpen(true); 
                     }}
                     onDelete={handleDeleteDevice}
                   />

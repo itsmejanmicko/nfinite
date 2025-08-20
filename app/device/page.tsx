@@ -7,7 +7,6 @@ import { Sidebar } from "@/components/sidebar";
 import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { toast } from "sonner";
-import { DeviceList } from "@/components/device-list";
 import ListDevice from "./devicetable";
 
 export interface Device {

@@ -36,7 +36,6 @@ function parseTime(timeStr: string): Date | null {
   return date;
 }
 
-// Get duration between timeIn and timeOut (or now if ongoing)
 function getDuration(timeIn: string, timeOut?: string) {
   const start = parseTime(timeIn);
   const end = timeOut ? parseTime(timeOut) : new Date();
@@ -61,14 +60,11 @@ function getCondition(device: Device) {
   const remainingBattery = device.afterBattery 
 
   if (duration.hours >= 6 && remainingBattery > 30) {
-    // ✅ update Firestore as "Pass"
     const deviceRef = doc(db, "stresstest", device.id)
     updateDoc(deviceRef, { result: "Pass" })
 
     return <div className="text-green-500">Pass</div>
   }
-
-  // ❌ otherwise fail
   const deviceRef = doc(db, "stresstest", device.id)
   updateDoc(deviceRef, { result: "Fail" })
 

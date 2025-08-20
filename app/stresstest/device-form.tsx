@@ -158,7 +158,7 @@ export function DeviceForm({ device, onSave, onCancel }: DeviceFormProps) {
               <div>
                   <Label htmlFor="status">Status</Label>
                 <Select 
-                  value={device?.status} 
+                  value={formData.status}
                   onValueChange={(value) => handleChange("status", value)}
                 >
                   <SelectTrigger>

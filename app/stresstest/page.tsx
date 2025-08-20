@@ -92,10 +92,11 @@ export default function DeviceManagement() {
     const fetchUserData = async () => {
       const userData = await getDocs(collection(db, "stresstest"));
       const items: Device[] = [];
-      userData.forEach((docSnap) => {
+      const dbdata = userData.forEach((docSnap) => {
         items.push({ id: docSnap.id, ...docSnap.data() } as Device);
       });
-      setDevices(items);
+      const filterItems = items.filter((item: Device) => item.status !== "Completed");
+      setDevices(filterItems);
     };
     fetchUserData();
   }, []);

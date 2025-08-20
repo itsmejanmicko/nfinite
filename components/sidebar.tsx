@@ -32,7 +32,7 @@ export function Sidebar() {
   const { devices, loading } = useGlobalFetch()
   const [activeCount, setActiveCount] = useState(0)
   const [showLogoutDialog, setShowLogoutDialog] = useState(false)
-  const [collapsed, setCollapsed] = useState(false) // 👈 sidebar collapsed state
+  const collapsed = true;
 
   useEffect(() => {
     if (loading) return
@@ -99,12 +99,6 @@ export function Sidebar() {
           </div>
           {!collapsed && <span className="text-xl font-semibold text-gray-900">DeviceTest</span>}
         </div>
-        <button
-          onClick={() => setCollapsed((prev) => !prev)}
-          className="p-1 rounded-lg hover:bg-gray-100 transition"
-        >
-          {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
-        </button>
       </div>
 
       <nav className="flex-1 px-2">
